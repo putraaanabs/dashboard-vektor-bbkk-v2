@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+<main class="main-content">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">PEMUTAKHIRAN DATA</p>
+      <h1>Koreksi data survei</h1>
+      <p class="subhead">Pilih jenis catatan, cari data, lalu buka formulir koreksi.</p>
+    </div>
+    <a class="back-link" href="/input">Kembali ke input data</a>
+  </header>
+  <section class="input-grid">
+    <% forms.forEach(function(form) { %>
+      <a class="input-card" href="/input/manage/<%= form.key %>">
+        <span class="input-symbol">✎</span>
+        <h2><%= form.title %></h2>
+        <p>Cari dan koreksi catatan yang sudah tersimpan.</p>
+      </a>
+    <% }); %>
+  </section>
+</main>
+<%- include('partials/footer') %>

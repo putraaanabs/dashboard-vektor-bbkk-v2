@@ -1,0 +1,57 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+<main class="main-content">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">KOREKSI DATA</p>
+      <h1><%= form.title %></h1>
+      <p class="subhead">Pilih catatan yang ingin diperbaiki.</p>
+    </div>
+    <a class="back-link" href="/input/manage">Kembali ke jenis data</a>
+  </header>
+
+  <% if (saved) { %><div class="notice success" role="status">Koreksi berhasil disimpan.</div><% } %>
+  <% if (error) { %><div class="notice error" role="alert"><%= error %></div><% } %>
+
+  <form class="toolbar record-filters" method="get">
+    <label>Wilayah kerja
+      <select name="wilker">
+        <option value="semua">Semua wilayah</option>
+        <% wilkers.forEach(function(wilker) { %><option value="<%= wilker %>" <%= filters.wilker === wilker ? 'selected' : '' %>><%= wilker %></option><% }); %>
+      </select>
+    </label>
+    <label>Periode
+      <input type="month" name="periode" value="<%= filters.period %>">
+    </label>
+    <label>Lokasi
+      <input type="search" name="cari" value="<%= filters.search %>" placeholder="Cari nama lokasi">
+    </label>
+    <button class="button button-primary" type="submit">Cari data</button>
+  </form>
+
+  <% if (!error) { %>
+    <p class="data-note">Menampilkan maksimal 200 catatan terbaru untuk filter ini. Gunakan filter periode atau lokasi untuk mencari catatan lama.</p>
+    <% if (!rows.length) { %>
+      <div class="empty-state"><h2>Belum ada catatan yang cocok</h2><p>Ubah filter wilker, periode, atau lokasi.</p></div>
+    <% } else { %>
+      <section class="panel table-panel record-list-panel">
+        <div class="table-title">Ditemukan <%= rows.length %> catatan</div>
+        <div class="table-wrap record-table-wrap">
+          <table>
+            <thead><tr><th>ID</th><% columns.forEach(function(column) { %><th><%= column.label %></th><% }); %><th>Aksi</th></tr></thead>
+            <tbody>
+              <% rows.forEach(function(row) { %>
+                <tr>
+                  <td><%= row.id %></td>
+                  <% columns.forEach(function(column) { %><td><%= row[column.key] == null ? '—' : row[column.key] %></td><% }); %>
+                  <td><a class="record-edit-link" href="/input/<%= form.key %>/<%= row.id %>/edit">Edit</a></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    <% } %>
+  <% } %>
+</main>
+<%- include('partials/footer') %>

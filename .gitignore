@@ -1,0 +1,8 @@
+node_modules/
+.env
+npm-debug.log*
+
+# Arsip lokal dan data survei yang tidak untuk diunggah
+*.zip
+sql/vektor_db-seed.sql
+docs/rendered/

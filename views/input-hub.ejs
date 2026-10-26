@@ -1,0 +1,12 @@
+<%- include('partials/header') %><%- include('partials/sidebar') %><main class="main-content">
+<header class="page-header"><div><p class="eyebrow">PENCATATAN LAPANGAN</p><h1>Input data survei</h1><p class="subhead">Pilih formulir sesuai jenis kegiatan.</p></div><a class="button button-outline" href="/input/manage">Koreksi data tersimpan</a></header>
+<% if (tersimpan) { %><div class="notice success">Data berhasil disimpan.</div><% } %>
+<section class="input-grid">
+<a class="input-card" href="/input/lalat"><span class="input-symbol">↗</span><h2>Survei lalat</h2><p>Kepadatan dan kondisi lingkungan.</p></a>
+<a class="input-card" href="/input/kecoa"><span class="input-symbol">◉</span><h2>Survei kecoa</h2><p>Perangkap, jumlah tangkapan, dan spesies.</p></a>
+<a class="input-card" href="/input/tikus"><span class="input-symbol">⌁</span><h2>Pengawasan tikus</h2><p>Hasil pemasangan perangkap.</p></a>
+<a class="input-card" href="/input/lingkungan"><span class="input-symbol">⌂</span><h2>Kondisi lingkungan tikus</h2><p>Temuan tanda dan kondisi lingkungan.</p></a>
+<a class="input-card" href="/input/malaria"><span class="input-symbol">⌖</span><h2>Survei malaria</h2><p>Pencatatan hasil survei Anopheles.</p></a>
+<a class="input-card" href="/input/dbd"><span class="input-symbol">◌</span><h2>Pengamatan jentik DBD</h2><p>Rumah dan kontainer yang diperiksa.</p></a>
+<a class="input-card" href="/input/fogging"><span class="input-symbol">✳</span><h2>Pengendalian DBD</h2><p>Kegiatan fogging dan penggunaan insektisida.</p></a>
+</section></main><%- include('partials/footer') %>

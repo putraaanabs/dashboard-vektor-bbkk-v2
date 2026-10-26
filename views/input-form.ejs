@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+<main class="main-content narrow">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">FORMULIR DATA</p>
+      <h1><%= form.title %></h1>
+    </div>
+    <a class="back-link" href="<%= formBackHref || '/input' %>">Kembali ke daftar</a>
+  </header>
+
+  <% if (error) { %><div class="notice error" role="alert"><%= error %></div><% } %>
+
+  <form class="form-panel" action="<%= formAction || `/input/${form.key}` %>" method="post">
+    <% form.fields.forEach(function(field) { %>
+      <label class="form-field" for="field-<%= field.name %>">
+        <span><%= field.label %><% if (field.required === false) { %> <small class="optional-label">(opsional)</small><% } %></span>
+        <% if (field.type === 'select') { %>
+          <select id="field-<%= field.name %>" name="<%= field.name %>" required>
+            <option value="">Pilih <%= field.label.toLowerCase() %></option>
+            <% field.options.forEach(function(option) { const optionValue = typeof option === 'string' ? option : option.value; const optionLabel = typeof option === 'string' ? option : option.label; %>
+              <option value="<%= optionValue %>" <%= values[field.name] === optionValue ? 'selected' : '' %>><%= optionLabel %></option>
+            <% }); %>
+          </select>
+        <% } else if (field.type === 'period') { %>
+          <input id="field-<%= field.name %>" type="month" name="periode" value="<%= values.periode || '' %>" required>
+        <% } else { %>
+          <input id="field-<%= field.name %>" name="<%= field.name %>" type="<%= field.type %>"
+            value="<%= values[field.name] || '' %>"
+            <%= field.type === 'number' ? `min="0" step="${field.step}"` : '' %>
+            <%= field.required ? 'required' : '' %>>
+        <% } %>
+      </label>
+    <% }); %>
+    <div class="form-actions">
+      <button class="button button-primary" type="submit"><%= form.submitLabel || 'Simpan data' %></button>
+      <a class="back-link" href="<%= formBackHref || '/input' %>">Batal</a>
+    </div>
+  </form>
+</main>
+<%- include('partials/footer') %>

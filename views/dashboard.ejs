@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+<main class="main-content">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">BALAI BESAR KEKARANTINAAN KESEHATAN</p>
+      <h1>Dashboard Surveilans Vektor</h1>
+      <p class="subhead">Tren harian pemantauan vektor.</p>
+    </div>
+    <img class="agency-logo" src="/asset/kemenkes.png" alt="Logo Kementerian Kesehatan">
+  </header>
+
+  <section class="toolbar" aria-label="Filter dashboard">
+    <label>Wilayah kerja
+      <select id="filter-wilker">
+        <option value="semua">Semua wilayah</option>
+        <% wilkers.forEach(function(w) { %><option value="<%= w %>"><%= w %></option><% }); %>
+      </select>
+    </label>
+    <label>Periode
+      <input id="filter-bulan" type="month" value="2025-09">
+    </label>
+    <button id="download-data" class="button button-outline" type="button">Unduh CSV</button>
+  </section>
+
+  <div id="notice" class="notice" role="status" hidden></div>
+
+  <nav class="tabs" aria-label="Pilih vektor">
+    <button class="tab active" data-vektor="tikus">Tikus</button>
+    <button class="tab" data-vektor="lalat">Lalat</button>
+    <button class="tab" data-vektor="kecoa">Kecoa</button>
+    <button class="tab" data-vektor="malaria">Malaria</button>
+    <button class="tab" data-vektor="dbd">DBD</button>
+  </nav>
+
+  <section id="metrics" class="summary-stack" aria-live="polite"></section>
+
+  <div id="no-data" class="empty-state" hidden>
+    <div class="empty-icon">⌕</div>
+    <h2>Belum ada data untuk filter ini</h2>
+    <p>Ubah bulan atau wilayah kerja untuk melihat catatan lain.</p>
+  </div>
+
+  <section id="charts" class="chart-grid" hidden>
+    <article class="panel chart-panel" id="chart-panel-a">
+      <div class="panel-heading"><div><p class="eyebrow">TREN HARIAN</p><h2 id="chart-title-a"></h2></div></div>
+      <canvas id="chart-a"></canvas>
+    </article>
+    <article class="panel chart-panel" id="chart-panel-b">
+      <div class="panel-heading"><div><p class="eyebrow">TREN HARIAN</p><h2 id="chart-title-b"></h2></div></div>
+      <canvas id="chart-b"></canvas>
+    </article>
+  </section>
+
+  <p class="data-note" id="hour-method-note" hidden>Setiap titik menunjukkan rata-rata indikator pada interval jam yang sama dari catatan dalam bulan terpilih.</p>
+  <p class="data-note" id="daily-method-note" hidden>Titik grafik adalah tanggal survei. Beberapa catatan pada tanggal yang sama dijumlahkan untuk data hitungan dan dirata-ratakan untuk kepadatan serta indikator.</p>
+  <p class="data-note" id="chart-coverage-note" hidden></p>
+  <section id="tables" class="table-stack"></section>
+
+  <p class="data-note" id="dbd-period-note" hidden>Data sumber DBD hanya tersedia per bulan. Nilai DBD ditampilkan sebagai ringkasan bulan yang dipilih, bukan tren harian.</p>
+  <p class="data-note" id="dbd-index-note" hidden>Status capaian dihitung dari ABJ dengan target program ≥95% menurut <a href="https://kemkes.go.id/app_asset/file_content_download/17169572496656b041cb8755.43910670.pdf" target="_blank" rel="noopener noreferrer">rujukan Kementerian Kesehatan</a>. Label ini menunjukkan capaian terhadap target, bukan penilaian risiko resmi.</p>
+  <p class="data-note" id="dbd-year-note" hidden>Data pengamatan DBD dalam arsip awal tidak mencatat tahun. Versi ini menambahkan kolom tahun dan menetapkan catatan lama ke 2025 melalui migrasi.</p>
+</main>
+<%- include('partials/footer') %>
+
+
